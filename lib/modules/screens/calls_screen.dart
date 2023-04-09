@@ -1,22 +1,22 @@
 import 'dart:convert';
 import '../../web_services/api.dart';
 import 'package:flutter/material.dart';
+import 'package:whatsapp_project/constant/colors.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 
-class ChatScreen extends StatelessWidget {
+class  CallsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //...................floatingchat .......................
-       floatingActionButton: const FloatingActionButton(
+      // ..............floatingActionButton................
+      floatingActionButton: const FloatingActionButton(
               onPressed: null,
               backgroundColor: Color.fromRGBO(0, 168, 132, 35),
-              child: Icon(Icons.chat),
+              child: Icon(Icons.call),
             ),
-      
-      body: FutureBuilder<List<People>>(
+      body:FutureBuilder<List<People>>(
       future: _loadJsonData(),
       builder: (context, snapshot) {
         //...............................error...........................
@@ -37,17 +37,13 @@ class ChatScreen extends StatelessWidget {
                   ),
                   title: Text(peopleList[index].name,style:const TextStyle(fontWeight: FontWeight.bold),),
                   subtitle: Row(children: [
-                    const Icon(Icons.done_all, color: Colors.blue),
+                    const Icon(Icons.call_missed_outgoing, color: Colors.red),
                     Expanded(
-                        child: Text(
-                      peopleList[index].description.length <= 30
-                          ? peopleList[index]
-                              .description // if less than or equal to 20 characters
-                          : "${peopleList[index].description.substring(0, 30)}...",
-                    ))
+                      child: Text(
+                      peopleList[index].date))
                   ] // if more than 20 characters
                       ),
-                  trailing: Text(peopleList[index].time),
+                  trailing:  Icon(Icons.call,color: mainColor)
                 );
               });
           //...............................loading...........................
@@ -57,7 +53,7 @@ class ChatScreen extends StatelessWidget {
           );
         }
       },
-    )
+       )
     );
   }
 }
